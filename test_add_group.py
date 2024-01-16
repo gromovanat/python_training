@@ -9,10 +9,9 @@ import unittest, time, re
 
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
-        self.wd = webdriver.Chrome()
+        self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
 
-    
     def test_add_group(self):
         wd = self.wd
         wd.get("http://localhost/addressbook/group.php")
