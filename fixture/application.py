@@ -18,8 +18,5 @@ class Application:
         wd.get("http://localhost/addressbook/group.php")
 
 
-
-
-
     def destroy(self):
         self.wd.quit()
