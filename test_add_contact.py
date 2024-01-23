@@ -38,18 +38,6 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("middlename").send_keys(contact.middlename)
         wd.find_element_by_name("lastname").clear()
         wd.find_element_by_name("lastname").send_keys(contact.lastname)
-        wd.find_element_by_name("nickname").click()
-        wd.find_element_by_name("nickname").clear()
-        #fill nickname
-        wd.find_element_by_name("nickname").send_keys(contact.nickname)
-        #fill title
-        wd.find_element_by_name("title").click()
-        wd.find_element_by_name("title").clear()
-        wd.find_element_by_name("title").send_keys(contact.title)
-        #fill company name
-        wd.find_element_by_name("company").click()
-        wd.find_element_by_name("company").clear()
-        wd.find_element_by_name("company").send_keys(contact.company)
         #fill adress
         wd.find_element_by_name("address").clear()
         wd.find_element_by_name("address").send_keys(contact.addres)
@@ -71,9 +59,6 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("email2").send_keys(contact.email2)
         wd.find_element_by_name("email3").clear()
         wd.find_element_by_name("email3").send_keys(contact.email3)
-        #fill homepage
-        wd.find_element_by_name("homepage").clear()
-        wd.find_element_by_name("homepage").send_keys(contact.homepage)
         #fill birthday
         wd.find_element_by_name("bday").click()
         Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.bday)
@@ -82,14 +67,6 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(contact.byear)
-        #fill aday
-        wd.find_element_by_name("aday").click()
-        Select(wd.find_element_by_name("aday")).select_by_visible_text(contact.aday)
-        wd.find_element_by_name("amonth").click()
-        Select(wd.find_element_by_name("amonth")).select_by_visible_text(contact.amonth)
-        wd.find_element_by_name("ayear").click()
-        wd.find_element_by_name("ayear").clear()
-        wd.find_element_by_name("ayear").send_keys(contact.ayear)
         #save
         wd.find_element_by_xpath("//div[@id='content']/form/input[20]").click()
 
@@ -104,10 +81,8 @@ class TestAddContact(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd, username = "admin", password = "secret")
         self.open_new_contact_page(wd)
-        self.create_new_contact(wd, Contact(firstname="Ivan", middlename="Ivanovich", lastname="Ivanov", nickname="Vanya", title="Friends", company="ABC LTD",
-                                addres="Moskovskaya st 18-15", home="+74012555555", mobile="+79114830657", work="+74012666666", fax="+74012888888",
-                                email1="vanya@mail.ru", email2="vanya2@mail.ru", email3="vanya3@mail.ru", homepage="abc.ru", bday="1", bmonth="January", byear="2000", aday="2", amonth="June",
-                                ayear="2020"))
+        self.create_new_contact(wd, Contact(firstname="Ivan", middlename="Ivanovich", lastname="Ivanov", addres="Moskovskaya st 18-15", home="+74012555555", mobile="+79114830657", work="+74012666666", fax="+74012888888",
+                                email1="vanya@mail.ru", email2="vanya2@mail.ru", email3="vanya3@mail.ru", bday="1", bmonth="January", byear="2000"))
         self.returt_to_home_page(wd)
         self.logout(wd)
 
