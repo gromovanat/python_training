@@ -1,11 +1,12 @@
 import pytest
-from fixture.application import Application
+from fixture.main import MainHelper
 
 @pytest.fixture
 def app(request):
-    fixture = Application()
+    fixture = MainHelper()
     request.addfinalizer(fixture.destroy)
     return fixture
+
 
 
 

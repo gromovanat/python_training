@@ -1,16 +1,5 @@
 # -*- coding: utf-8 -*-
-import pytest
 from model.contact import Contact
-from fixture.app_contact import AppContact
-from fixture.conftes import MainHelper
-
-
-@pytest.fixture
-def app(request):
-    #fixture = AppContact()
-    fixture = MainHelper()
-    request.addfinalizer(fixture.destroy)
-    return fixture
 
 
 def test_add_contact(app):
