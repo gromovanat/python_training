@@ -1,9 +1,9 @@
 import pytest
-from fixture.main import MainHelper
+from fixture.application import Application
 
 @pytest.fixture
 def app(request):
-    fixture = MainHelper()
+    fixture = Application()
     request.addfinalizer(fixture.destroy)
     return fixture
 
