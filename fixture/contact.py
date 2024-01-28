@@ -51,7 +51,6 @@ class ContactHelper:
             wd.find_element_by_name(dropdown_name).click()
             Select(wd.find_element_by_name(dropdown_name)).select_by_visible_text(text)
 
-
     def fill_contact_form(self, contact):
         wd = self.app.wd
         # fill name
@@ -69,7 +68,6 @@ class ContactHelper:
         self.change_dropdown_value("bday", contact.bday)
         self.change_dropdown_value("bmonth", contact.bmonth)
         self.change_field_value("byear", contact.byear)
-
 
     def delete_first_contact(self):
         wd = self.app.wd
