@@ -28,11 +28,15 @@ class ContactHelper:
         self.return_to_home_page()
         self.contact_cache = None
 
-    def edit_first_contact(self, contact):
+    def edit_first_contact(self):
+        self.edit_contact_by_index(0)
+
+
+    def edit_contact_by_index(self, index, contact):
         wd = self.app.wd
         self.open_home_page()
         # select first contact
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
         # open contact
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         # edit contact
@@ -74,10 +78,13 @@ class ContactHelper:
         self.change_field_value("byear", contact.byear)
 
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.open_home_page()
         # select first contact
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         self.return_to_home_page()
@@ -103,5 +110,5 @@ class ContactHelper:
                 firstname_text = element.find_element_by_css_selector("td:nth-child(3)").text
                 lastname_text = element.find_element_by_css_selector("td:nth-child(2)").text
                 id = element.find_element_by_name("selected[]").get_attribute("id")
-                self.contact_cache.append(Contact(id=id, firstname=firstname_text, lastname=lastname_text,))
+                self.contact_cache.append(Contact(id=id, firstname=firstname_text, lastname=lastname_text))
         return list(self.contact_cache)
