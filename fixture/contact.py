@@ -38,7 +38,7 @@ class ContactHelper:
         # select first contact
         wd.find_elements_by_name("selected[]")[index].click()
         # open contact
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
         # edit contact
         self.fill_contact_form(contact)
         # update
