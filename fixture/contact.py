@@ -2,6 +2,7 @@ from selenium.webdriver.support.ui import Select
 from model.contact import Contact
 import re
 
+
 class ContactHelper:
 
     def __init__(self, app):
@@ -71,7 +72,7 @@ class ContactHelper:
         self.change_field_value("fax", contact.fax)
         self.change_field_value("email", contact.email1)
         self.change_field_value("email2", contact.email2)
-        self.change_field_value("email", contact.email3)
+        self.change_field_value("email3", contact.email3)
         self.change_dropdown_value("bday", contact.bday)
         self.change_dropdown_value("bmonth", contact.bmonth)
         self.change_field_value("byear", contact.byear)
@@ -110,8 +111,11 @@ class ContactHelper:
                 firstname_text = element.find_element_by_css_selector("td:nth-child(3)").text
                 lastname_text = element.find_element_by_css_selector("td:nth-child(2)").text
                 id = element.find_element_by_name("selected[]").get_attribute("id")
+                address = cells[3].text
+                all_emails = cells[4].text
                 all_phones = cells[5].text
                 self.contact_cache.append(Contact(id=id, firstname=firstname_text, lastname=lastname_text,
+                                                  address=address, all_emails_from_home_page=all_emails,
                                                   all_phones_from_home_page=all_phones))
         return list(self.contact_cache)
 
@@ -137,11 +141,17 @@ class ContactHelper:
         firstname = wd.find_element_by_name("firstname").get_attribute("value")
         lastname = wd.find_element_by_name("lastname").get_attribute("value")
         id = wd.find_element_by_name("id").get_attribute("value")
+        address = wd.find_element_by_name("address").text
         home = wd.find_element_by_name("home").get_attribute("value")
         mobile = wd.find_element_by_name("mobile").get_attribute("value")
         work = wd.find_element_by_name("work").get_attribute("value")
         fax = wd.find_element_by_name("fax").get_attribute("value")
-        return Contact(firstname=firstname, lastname=lastname, id=id, home=home, mobile=mobile, work=work, fax=fax)
+        email1 = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
+        return Contact(firstname=firstname, lastname=lastname, id=id, address=address,
+                       home=home, mobile=mobile, work=work, fax=fax,
+                       email1=email1, email2=email2, email3=email3)
 
 
     def get_contact_from_view_page(self, index):
@@ -153,3 +163,17 @@ class ContactHelper:
         work = re.search("W: (.*)", text).group(1)
         fax = re.search("F: (.*)", text).group(1)
         return Contact(home=home, mobile=mobile, work=work, fax=fax)
+
+    def clear(self, s):
+        return re.sub("[() -]", "", s)
+
+    def merge_phones_like_on_home_page(self, contact):
+        return "\n".join(filter(lambda x: x != "",
+                                map(lambda x: self.clear(x),
+                                    filter(lambda x: x is not None,
+                                           [contact.home, contact.mobile, contact.work]))))
+
+    def merge_emails_like_on_home_page(self, contact):
+        return "\n".join(filter(lambda x: x != "",
+                                filter(lambda x: x is not None,
+                                       [contact.email1, contact.email2, contact.email3])))
