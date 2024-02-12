@@ -13,7 +13,6 @@ class ContactHelper:
         if not (wd.current_url.endswith("/addressbook/")):
             wd.find_element_by_link_text("home").click()
 
-
     def open_new_contact_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
@@ -32,7 +31,6 @@ class ContactHelper:
 
     def edit_first_contact(self):
         self.edit_contact_by_index(0)
-
 
     def edit_contact_by_index(self, index, contact):
         wd = self.app.wd
@@ -119,14 +117,12 @@ class ContactHelper:
                                                   all_phones_from_home_page=all_phones))
         return list(self.contact_cache)
 
-
     def open_contact_to_edit_by_index(self, index):
         wd = self.app.wd
         self.app.open_home_page()
         row = wd.find_elements_by_name("entry")[index]
         cell = row.find_elements_by_tag_name("td")[7]
         cell.find_element_by_tag_name("a").click()
-
 
     def open_contact_view_by_index(self, index):
         wd = self.app.wd
@@ -152,7 +148,6 @@ class ContactHelper:
         return Contact(firstname=firstname, lastname=lastname, id=id, address=address,
                        home=home, mobile=mobile, work=work, fax=fax,
                        email1=email1, email2=email2, email3=email3)
-
 
     def get_contact_from_view_page(self, index):
         wd = self.app.wd
