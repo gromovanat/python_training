@@ -110,9 +110,9 @@ class ContactHelper:
                 firstname_text = element.find_element_by_css_selector("td:nth-child(3)").text
                 lastname_text = element.find_element_by_css_selector("td:nth-child(2)").text
                 id = element.find_element_by_name("selected[]").get_attribute("id")
-                all_phones = cells[5].text.splitlines()
+                all_phones = cells[5].text
                 self.contact_cache.append(Contact(id=id, firstname=firstname_text, lastname=lastname_text,
-                                                  home = all_phones[0], mobile = all_phones[1], work = all_phones[2]))
+                                                  all_phones_from_home_page=all_phones))
         return list(self.contact_cache)
 
 
