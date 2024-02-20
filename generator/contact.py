@@ -52,7 +52,7 @@ def random_email():
 testdata = [Contact(firstname=random_letters_string("firstname", 10), lastname=random_letters_string("lastname", 10),
                     address=random_string("address", 30),
                     home=random_digits_string(11), mobile=random_digits_string(11), work=random_digits_string(11),
-                                email1=random_email(), email2=random_email(), email3=random_email())]
+                                email1=random_email(), email2=random_email(), email3=random_email()) for i in range(n)]
 
 
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
