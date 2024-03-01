@@ -34,7 +34,7 @@ class DbFixture:
         try:
             cursor.execute("select 	id, firstname, lastname from addressbook")
             for row in cursor:
-                (id, firstname, lastname) = row
+                (id, firstname, lastname, address, home, mobile, work, email, email2, email3) = row
                 list.append(Contact(id=str(id), firstname=firstname, lastname=lastname))
         finally:
             cursor.close()
