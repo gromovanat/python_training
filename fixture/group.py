@@ -128,11 +128,11 @@ class GroupHelper:
 
 
 
-    def delete_contact_from_group(self, index, group_name):
+    def delete_contact_from_group(self, index, group_id):
         wd = self.app.wd
         if not (wd.current_url.endswith("/addressbook/")):
             wd.find_element_by_link_text("home").click()
         wd.find_element_by_name("group").click()
-        Select(wd.find_element_by_name("group")).select_by_visible_text("%s" % group_name)
+        Select(wd.find_element_by_name("group")).select_by_value('%s' % group_id)
         wd.find_elements_by_name("selected[]")[index].click()
         wd.find_element_by_name("remove").click()

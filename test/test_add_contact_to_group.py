@@ -17,13 +17,12 @@ def test_add_contact_to_group(app, db):
     contacts_list = app.contact.get_contact_list()
     random_contact = random.choice(contacts_list)
     index = contacts_list.index(random_contact)
-    # из списка групп выбираем рандомную и узнаем ее имя
+    # из списка групп выбираем рандомную и узнаем ее id
     group_list = app.group.get_group_list()
     random_group = random.choice(group_list)
-    group_name = random_group.name
     group_id = random_group.id
-    # выбираем контакт по индексу и добавляем в группу по имени
-    app.contact.contact_add_to_group(index, group_name)
-    # Проверяем, что контакт входит в группу: контакт с таким id есть в списке?
+    # выбираем контакт по индексу и добавляем в группу по id
+    app.contact.contact_add_to_group(index, group_id)
+    # Проверяем, что контакт входит в группу: контакт с таким id есть в списке группы?
     l = data_base.get_contacts_in_group(Group(id=group_id))
     assert random_contact.id in [x.id for x in l]

@@ -16,19 +16,18 @@ def test_delete_contact_from_group(app, db):
     # выбрать любую группу из списка существующих групп
     group_list = app.group.get_group_list()
     random_group = random.choice(group_list)
-    # получить имя и id выбранной группы
-    group_name = random_group.name
+    # получить id выбранной группы
     group_id = random_group.id
     # если в группе нет контакта - добавить его в группу
     if len(data_base.get_contacts_in_group(Group(id=group_id))) == 0:
-        app.contact.contact_add_to_group(0, group_name)
+        app.contact.contact_add_to_group(0, group_id)
     # получаем список контактов в группе:
-    contacts_list_in_group = app.contact.get_contact_list_in_group(group_name)
+    contacts_list_in_group = app.contact.get_contact_list_in_group(group_id)
     # выбираем рандомный контакт
     random_contact = random.choice(contacts_list_in_group)
     index = contacts_list_in_group.index(random_contact)
     # удаляем рандомный контакт из списка в группе
-    app.group.delete_contact_from_group(index, group_name)
+    app.group.delete_contact_from_group(index, group_id)
     # проверяем, что контакт удалился из группы в БД
     l = data_base.get_contacts_not_in_group(Group(id=group_id))
     assert random_contact.id  in [x.id for x in l]

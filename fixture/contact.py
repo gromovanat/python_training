@@ -197,21 +197,21 @@ class ContactHelper:
                                        [contact.email1, contact.email2, contact.email3])))
 
 
-    def contact_add_to_group(self, index, group_name):
+    def contact_add_to_group(self, index, group_id):
         wd = self.app.wd
         self.open_home_page()
         wd.find_elements_by_name("selected[]")[index].click()
         wd.find_element_by_name("to_group").click()
-        Select(wd.find_element_by_name("to_group")).select_by_visible_text("%s" % group_name)
+        Select(wd.find_element_by_name("to_group")).select_by_value('%s' % group_id)
         wd.find_element_by_name("add").click()
 
 
-    def get_contact_list_in_group(self, group_name):
+    def get_contact_list_in_group(self, group_id):
         if self.contact_cache is None:
             wd = self.app.wd
             self.open_home_page()
             wd.find_element_by_name("group").click()
-            Select(wd.find_element_by_name("group")).select_by_visible_text("%s" % group_name)
+            Select(wd.find_element_by_name("group")).select_by_value('%s' % group_id)
             self.contact_cache = []
             for element in wd.find_elements_by_css_selector("table tr[name='entry']"):
                 cells = element.find_elements_by_tag_name("td")
