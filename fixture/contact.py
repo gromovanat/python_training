@@ -202,6 +202,26 @@ class ContactHelper:
         self.open_home_page()
         wd.find_elements_by_name("selected[]")[index].click()
         wd.find_element_by_name("to_group").click()
-       # Select(wd.find_element_by_name("to_group")).select_by_visible_text("test")
         Select(wd.find_element_by_name("to_group")).select_by_visible_text("%s" % group_name)
         wd.find_element_by_name("add").click()
+
+
+    def get_contact_list_in_group(self, group_name):
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.open_home_page()
+            wd.find_element_by_name("group").click()
+            Select(wd.find_element_by_name("group")).select_by_visible_text("%s" % group_name)
+            self.contact_cache = []
+            for element in wd.find_elements_by_css_selector("table tr[name='entry']"):
+                cells = element.find_elements_by_tag_name("td")
+                firstname_text = element.find_element_by_css_selector("td:nth-child(3)").text
+                lastname_text = element.find_element_by_css_selector("td:nth-child(2)").text
+                id = element.find_element_by_name("selected[]").get_attribute("id")
+                address = cells[3].text
+                all_emails = cells[4].text
+                all_phones = cells[5].text
+                self.contact_cache.append(Contact(id=id, firstname=firstname_text, lastname=lastname_text,
+                                                  address=address, all_emails_from_home_page=all_emails,
+                                                  all_phones_from_home_page=all_phones))
+        return list(self.contact_cache)
