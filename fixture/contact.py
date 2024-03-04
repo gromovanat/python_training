@@ -195,3 +195,13 @@ class ContactHelper:
         return "\n".join(filter(lambda x: x != "",
                                 filter(lambda x: x is not None,
                                        [contact.email1, contact.email2, contact.email3])))
+
+
+    def contact_add_to_group(self, index, group_name):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_elements_by_name("selected[]")[index].click()
+        wd.find_element_by_name("to_group").click()
+       # Select(wd.find_element_by_name("to_group")).select_by_visible_text("test")
+        Select(wd.find_element_by_name("to_group")).select_by_visible_text("%s" % group_name)
+        wd.find_element_by_name("add").click()
