@@ -1,6 +1,7 @@
 from model.group import Group
 from selenium.webdriver.support.ui import Select
 
+
 class GroupHelper:
 
     def __init__(self, app):
@@ -36,10 +37,8 @@ class GroupHelper:
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
-
     def modify_first_group(self):
         self.modify_group_by_index(0)
-
 
     def modify_group_by_index(self, index, new_group_data):
         wd = self.app.wd
@@ -70,7 +69,6 @@ class GroupHelper:
     def select_first_group(self):
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
-
 
     def select_group_by_index(self, index):
         wd = self.app.wd
@@ -121,12 +119,8 @@ class GroupHelper:
                 self.group_cache.append(Group(name=text, id=id))
         return list(self.group_cache)
 
-
-
     def choose_group_on_home_page(self):
         wd = self.app.wd
-
-
 
     def delete_contact_from_group(self, index, group_id):
         wd = self.app.wd
