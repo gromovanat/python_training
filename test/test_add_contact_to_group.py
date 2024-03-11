@@ -14,11 +14,11 @@ def test_add_contact_to_group(app, db):
     group_list = app.group.get_group_list()
     random_group = random.choice(group_list)
     group_id = random_group.id
-    #получаем список контактов, не входящих в группу
-    n = data_base.get_contacts_not_in_group(Group(id=group_id))
     # если нет ни одного контакта, который не входит в выбранную группу,- создать новый контакт
-    if len(n) == 0:
+    if len(data_base.get_contacts_not_in_group(Group(id=group_id))) == 0:
         app.contact.create_new_contact(Contact(firstname="Test"))
+    # получаем список контактов, не входящих в группу
+    n = data_base.get_contacts_not_in_group(Group(id=group_id))
     # из списка контактов, не входящих в группу, выбираем рандомный
     random_contact = random.choice(n)
     #узнаем его индекс
