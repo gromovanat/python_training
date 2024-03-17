@@ -1,5 +1,4 @@
 from model.group import Group
-import random
 from random import randrange
 
 def test_modify_group_name(app, db, check_ui):

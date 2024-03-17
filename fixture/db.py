@@ -51,3 +51,4 @@ class DbFixture:
         return "\n".join(filter(lambda x: x != "",
                                 filter(lambda x: x is not None,
                                        [contact.email1, contact.email2, contact.email3])))
+
